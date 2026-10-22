@@ -1,10 +1,11 @@
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mi primera experiencia AR</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Mi realidad aumentada</title>
 
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
@@ -18,23 +19,21 @@
 
     #aviso {
       position: fixed;
-      top: 12px;
-      left: 12px;
-      right: 12px;
-      z-index: 10;
+      top: 10px;
+      left: 10px;
+      right: 10px;
       padding: 12px;
-      border-radius: 8px;
-      background: #153451;
       color: white;
-      font-size: 16px;
+      background: #153451;
+      border-radius: 8px;
       text-align: center;
-      pointer-events: none;
+      z-index: 10;
     }
   </style>
 </head>
 
 <body>
-  <div id="aviso">Cargando realidad aumentada...</div>
+  <div id="aviso">Iniciando cámara...</div>
 
   <a-scene
     mindar-image="imageTargetSrc: ./targets.mind;"
@@ -54,11 +53,10 @@
 
       <a-box
         color="#168BCD"
-        width="0.5"
-        height="0.5"
-        depth="0.5"
-        position="0 0 0.5"
-        material="shader: standard; color: #168BCD; roughness: 0.5">
+        width="0.3"
+        height="0.3"
+        depth="0.3"
+        position="0 0 0.1">
       </a-box>
 
     </a-entity>
@@ -69,20 +67,20 @@
     const aviso = document.querySelector("#aviso");
     const marcador = document.querySelector("#marcador");
 
-    escena.addEventListener("arReady", function () {
-      aviso.textContent = "Cámara lista. Apunta al marcador.";
+    escena.addEventListener("arReady", () => {
+      aviso.textContent = "Cámara lista. Busca tu marcador.";
     });
 
-    escena.addEventListener("arError", function () {
-      aviso.textContent = "Error al iniciar. Revisa la cámara y los archivos.";
+    escena.addEventListener("arError", () => {
+      aviso.textContent = "No se pudo iniciar la realidad aumentada.";
     });
 
-    marcador.addEventListener("targetFound", function () {
+    marcador.addEventListener("targetFound", () => {
       aviso.textContent = "¡Marcador detectado!";
     });
 
-    marcador.addEventListener("targetLost", function () {
-      aviso.textContent = "Busca nuevamente el marcador.";
+    marcador.addEventListener("targetLost", () => {
+      aviso.textContent = "Marcador perdido. Vuelve a enfocarlo.";
     });
   </script>
 </body>
